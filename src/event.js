@@ -864,6 +864,8 @@ function liveHandler( event ) {
 		related, match, fn, elem, j, i, data,
 		live = jQuery.extend({}, jQuery.data( this, "events" ).live);
 
+	if(event.button && event.type === 'click') return; // fix for #3861
+
 	for ( j in live ) {
 		fn = live[j];
 		if ( fn.live === event.type ||
