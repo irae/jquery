@@ -289,7 +289,7 @@ jQuery.extend({
 
 		// If we're requesting a remote document
 		// and trying to load JSON or Script with a GET
-		if ( s.dataType === "script" && type === "GET" && remote ) {
+		if ( s.dataType === "script" && type === "GET" && (remote || jsonp) ) {
 			var head = document.getElementsByTagName("head")[0] || document.documentElement;
 			var script = document.createElement("script");
 			script.src = s.url;

@@ -770,8 +770,8 @@ test("JSONP - Custom JSONP Callback", function() {
 	});
 });
 
-test("jQuery.ajax() - JSONP, Remote", function() {
-	expect(4);
+test("jQuery.ajax() - JSONP, Remote or Local", function() {
+	expect(5);
 
 	var count = 0;
 	function plus(){ if ( ++count == 4 ) start(); }
@@ -830,6 +830,20 @@ test("jQuery.ajax() - JSONP, Remote", function() {
 		},
 		error: function(data){
 			ok( false, "Ajax error JSON (GET, data obj callback)" );
+			plus();
+		}
+	});
+
+	jQuery.ajax({
+		url: base + "data/jsonp.php",
+		dataType: "jsonp",
+		data: {"verifyScriptTag":true},
+		success: function(data){
+			ok( window.isScriptTag, "JSONP is script tag" );
+			// garbage collect
+			try {
+				delete window.isScriptTag;
+			} catch(e) {}
 			plus();
 		}
 	});
